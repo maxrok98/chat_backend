@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+
+
+{% block body %}
+        <form action="{{ url_for('index') }}", method="post">
+            <button type="submit", class="r btn btn-danger butto">Logout</button>
+        </form>
+        <form action="{{ url_for('addchat') }}", method="post">
+            <h2>Name of chat</h2>
+            <input type="text" name="name"> 
+            <h2>Who you wand to add to chat</h2>
+            <input type="text" name="add">
+            <button type="submit", class="btn btn-success butto">Add chat</button>
+        </form>
+{% endblock%}

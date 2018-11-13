@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+
+
+{% block body %}
+        <form action="{{ url_for('index') }}", method="post">
+            <button type="submit", class="r btn btn-danger butto">Logout</button>
+        </form>
+        <h1>You are welcome, <div id="name">{{username}}</div></h1>
+        <div>
+            <h2>Your chats</h2>
+            <ol>
+                {% for chat in mychats %}
+                    <li><a href="{{url_for('chat', chat_id=chat.id)}}">{{chat.name}}</a></li>
+                {% endfor %}
+            </ol>
+        </div>
+        <div class="r">
+            <h2>You have been invated to:</h2>
+            <ol>
+                {% for chat in notmychats %}
+                    <li><a href="{{url_for('chat', chat_id=chat.id)}}">{{chat.name}}</a></li>
+                {% endfor %}
+            </ol>
+        </div>
+        <div class="c">
+            <form action="{{ url_for('addchat') }}", method="get">
+                <button type="submit", class="c btn btn-success butto">Add chat</button>
+            </form>
+        </div>
+{% endblock%}
