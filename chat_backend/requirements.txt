@@ -5,3 +5,4 @@ SQLAlchemy
 Flask-SocketIO
 requests
 psycopg2-binary
+gevent
