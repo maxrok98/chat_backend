@@ -83,9 +83,5 @@ def vote(data):
     chat_id = data["chat_id"]
     emit("return massege", {'user': user, 'text': text, 'chat_id': chat_id}, broadcast=True)
 
-if __name__ == '__main__':
-  db.create_all()
-  port = int(os.environ.get('PORT', 5000))
-  app.run(host='0.0.0.0', port=port, debug=True)
 
 
