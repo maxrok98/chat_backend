@@ -36,7 +36,7 @@ def login():
 		if login == []:
 			return render_template("bad.html")
 		else:
-			session['user'] = username.capitalize()
+			session['user'] = username
 			session['id'] = login.id
 			return redirect(url_for('chats'))
 	return render_template("login.html")
@@ -74,15 +74,21 @@ def addchat():
 @app.route("/chat/<chat_id>")
 def chat(chat_id):
 	chat = db.execute("SELECT name, creatorid, addedid FROM chats WHERE id = :chat_id", {"chat_id": chat_id}).fetchone()
-	masseges = db.execute("SELECT * FROM masseges WHERE chat_id = :chat_id", {"chat_id", chat_id}).fetchall()
-	return render_template("chat.html", username=session.get('user', ''), chat_id=chat_id, chat_name=chat.name, creatorid=chat.creatorid, addedid=chat.addedid, masseges=masseges)
+	for cha in chat:
+		print(cha)
+	masseges = db.execute("SELECT * FROM masseges WHERE chat_id = :chat_id", {"chat_id": chat_id}).fetchall()
+	#for massege in masseges:
+	#	print(massege)
+	return render_template("chat.html", username=session.get('user', ''), chat_id=chat_id, chat=chat, masseges=masseges)
 
 @socketio.on("send message")
 def vote(data):
-    user = session.get('user') #data["user"]
+    user = session.get('user').lower() #data["user"]
     text = data["text"]
     chat_id = data["chat_id"]
-    db.execute("INSERT INTO messages (chat_id, sender_id, text) VALUES (:chat_id, :sender_id, :text)", {"chat_id": chat_id, "sender_id": user, "text": text})
+    userid = db.execute("SELECT * FROM users WHERE username = :username", {"username": user}).fetchone()
+    print(userid.id)
+    db.execute("INSERT INTO masseges (chat_id, sender_id, text) VALUES (:chat_id, :sender_id, :text)", {"chat_id": chat_id, "sender_id": userid.id, "text": text})
     db.commit()
     emit("return massege", {'user': user, 'text': text, 'chat_id': chat_id}, broadcast=True)
 
