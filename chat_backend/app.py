@@ -73,14 +73,17 @@ def addchat():
 
 @app.route("/chat/<chat_id>")
 def chat(chat_id):
-	chat_name = db.execute("SELECT name FROM chats WHERE id = :chat_id", {"chat_id": chat_id}).fetchone()
-	return render_template("chat.html", username=session.get('user', ''), chat_id=chat_id, chat_name=chat_name)
+	chat = db.execute("SELECT name, creatorid, addedid FROM chats WHERE id = :chat_id", {"chat_id": chat_id}).fetchone()
+	masseges = db.execute("SELECT * FROM masseges WHERE chat_id = :chat_id", {"chat_id", chat_id}).fetchall()
+	return render_template("chat.html", username=session.get('user', ''), chat_id=chat_id, chat_name=chat.name, creatorid=chat.creatorid, addedid=chat.addedid, masseges=masseges)
 
 @socketio.on("send message")
 def vote(data):
     user = session.get('user') #data["user"]
     text = data["text"]
     chat_id = data["chat_id"]
+    db.execute("INSERT INTO messages (chat_id, sender_id, text) VALUES (:chat_id, :sender_id, :text)", {"chat_id": chat_id, "sender_id": user, "text": text})
+    db.commit()
     emit("return massege", {'user': user, 'text': text, 'chat_id': chat_id}, broadcast=True)
 
 
