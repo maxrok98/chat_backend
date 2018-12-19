@@ -53,8 +53,8 @@ def registration():
 
 @app.route("/chats")
 def chats():
-		mychats = db.execute("SELECT * FROM chats WHERE creatorid = :creator_id", {"creator_id": session.get('id')}).fetchall()
-		notmychats = db.execute("SELECT * FROM chats WHERE addedid = :added_id", {"added_id": session.get('id')}).fetchall()
+		mychats = db.execute("SELECT * FROM chats WHERE creatorid = :creatorid", {"creatorid": session.get('id')}).fetchall()
+		notmychats = db.execute("SELECT * FROM chats WHERE addedid = :addedid", {"addedid": session.get('id')}).fetchall()
 		return render_template("chats.html",  mychats=mychats, notmychats=notmychats, username=session.get('user', ''))
 
 
