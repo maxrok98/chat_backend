@@ -90,7 +90,7 @@ def vote(data):
     print(userid.id)
     db.execute("INSERT INTO masseges (chat_id, sender_id, text) VALUES (:chat_id, :sender_id, :text)", {"chat_id": chat_id, "sender_id": userid.id, "text": text})
     db.commit()
-    emit("return message", {'user': user, 'text': text, 'chat_id': chat_id}, broadcast=True)
+    socketio.emit("return message", {'user': user, 'text': text, 'chat_id': chat_id}, broadcast=True)
 
 @socketio.on("pc send message")
 def vote(pcdata):
