@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
     // When a new vote is announced, add to the unordered list
-    socket.on('return massege', data => {
+    socket.on('return message', data => {
         let chat_id = document.querySelector('#chat_id').innerHTML;
         if (parseInt(data.chat_id) == parseInt(chat_id)) {
             const li = document.createElement('li');
