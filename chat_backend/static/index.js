@@ -5,7 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // When connected, configure buttons
     socket.on('connect', () => {
-
+        
+        console.log("socket connected");
         // Each button should emit a "submit vote" event
         document.querySelector('#submit').onclick = () => {
                 //let user = document.querySelector('#name').innerHTML;
