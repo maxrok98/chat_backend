@@ -10,6 +10,9 @@
         <h2>Now you are in chat: {{chat_name}}</h2>
         <h2>Chat id: <span id="chat_id">{{chat_id}}</span></h2>
         <ul id="votes">
+                {% for m in masseges %}
+                    <li>{{m.text}}</li>
+                {% endfor %}
         </ul>
         <hr>
             <input id="text" type="text" name="">
