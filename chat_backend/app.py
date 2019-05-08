@@ -101,3 +101,6 @@ def vote(pcdata):
 	text = pcdata["text"]
 	db.execute("INSERT INTO masseges (chat_id, sender_id, text) VALUES (:chat_id, :sender_id, :text)", {"chat_id": chatid, "sender_id": userid, "text": text})
 	emit("return message", {'user': user, 'text': text, 'chat_id': chatid}, broadcast=True)
+
+if __name__ == "__main__":
+    socketio.run(app)
