@@ -2,7 +2,7 @@ Flask
 Flask-Session
 psycopg2
 SQLAlchemy
-Flask-SocketIO==0.6.0
+Flask-SocketIO
 requests
 psycopg2-binary
 gevent
