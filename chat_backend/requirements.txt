@@ -2,9 +2,9 @@ Flask
 Flask-Session
 psycopg2
 SQLAlchemy
-Flask-SocketIO
+Flask-SocketIO==0.6.0
 requests
 psycopg2-binary
 gevent
-gunicorn
+gunicorn==17.5
 eventlet
